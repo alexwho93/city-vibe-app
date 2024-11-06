@@ -24,6 +24,7 @@ const pages = [
   { name: "City Page", href: "/city" },
   { name: "Favorites", href: "/favorites" },
   { name: "Search", href: "/search" },
+  { name: "Login", href: "/signin" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -40,25 +41,7 @@ function Navbar() {
         passHref
         style={{ pointerEvents: isActive ? "none" : "auto" }}
       >
-        <Button
-          sx={{
-            color: "white",
-            "&.active": {
-              backgroundColor: "primary.light",
-              color: "white",
-              "&.Mui-disabled": {
-                backgroundColor: "primary.light",
-                color: "rgba(255, 255, 255, 0.75)",
-              },
-            },
-            "&:hover": {
-              backgroundColor: "primary.light",
-              color: "white",
-            },
-          }}
-          className={isActive ? "active Mui-disabled" : ""}
-          disabled={isActive}
-        >
+        <Button className={isActive ? "active" : ""}>
           <Typography>{page.name}</Typography>
         </Button>
       </Link>
@@ -70,23 +53,26 @@ function Navbar() {
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
         >
-          <Image src="/logo.png" alt="Logo" width={80} height={80} />
+          <Image src="/logo.png" alt="Logo" width={100} height={100} />
 
           {/* Menu section */}
-          <ButtonGroup variant="text">
+          <Box sx={{ display: "flex", gap: "8px" }}>
             {pages.map((page) => (
               <NavButton key={page.name} page={page} />
             ))}
-          </ButtonGroup>
+          </Box>
 
           {/* User account bubble */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton
                 onClick={(event) => setAnchorElUser(event.currentTarget)}
-                sx={{ p: 0 }}
+                sx={{ p: 0, borderRadius: "50%" }}
               >
                 <Avatar alt="Avatar Pictures" src="/user1.png" />
               </IconButton>

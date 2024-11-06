@@ -9,7 +9,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #424242;
+    --background: #191919;
+    --gradient: radial-gradient(
+      ellipse 60% 60% at 50% -20%,
+      rgba(249, 116, 21, 0.3),
+      rgb(24, 24, 24)
+    );
     --foreground: #ededed;
   }
 }
@@ -17,5 +22,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
+  background-image: var(--gradient);
+  min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
 }
