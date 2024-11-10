@@ -19,8 +19,8 @@ function WeatherCard({
   return (
     <Card
       sx={{
-        background:
-          "linear-gradient(180deg, rgba(129,181,244,1) 0%, rgba(42,94,156,1) 92%)",
+        // background:
+        //   "linear-gradient(180deg, rgba(129,181,244,1) 0%, rgba(42,94,156,1) 92%)",
         boxShadow: "inset 0 0 10px rgba(0, 0, 0, 0.2)",
         border: "none",
       }}
@@ -33,12 +33,12 @@ function WeatherCard({
           padding: "1rem",
         }}
       >
-        <Avatar
+        {/* <Avatar
           alt="Remy Sharp"
           src={icon}
-          sx={{ width: 70, height: 70, padding: "-20px" }}
-        />
-        <Typography variant="h2" component="div">
+          sx={{ width: 50, height: 50, padding: "-20px" }}
+        /> */}
+        <Typography variant="h3" component="div">
           {temperature}°
         </Typography>
         <Typography
@@ -48,7 +48,7 @@ function WeatherCard({
             background: "rgba(255,255,255,0.5)",
             padding: "2px 12px",
             borderRadius: "1rem",
-            color: "rgba(60,100,156,0.8)",
+            color: "rgba(255,255,255,0.7)",
           }}
         >
           Feels like: {temperature}°

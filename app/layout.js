@@ -6,6 +6,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Navbar from "./components/Navbar";
 import AppTheme from "@/MuiTheme/AppTheme";
+import SwrConfigProvider from "@/app/services/SwrConfigProvider";
 
 export const metadata = {
   title: "City Vibe",
@@ -18,8 +19,10 @@ export default function RootLayout({ children }) {
       <body>
         <AppRouterCacheProvider>
           <AppTheme>
-            <Navbar />
-            {children}
+            <SwrConfigProvider>
+              <Navbar />
+              {children}
+            </SwrConfigProvider>
           </AppTheme>
         </AppRouterCacheProvider>
       </body>
