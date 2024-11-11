@@ -23,24 +23,27 @@ import Link from "next/link";
 const SearchResultsList = ({ searchResults }) => (
   <List dense sx={{ width: "100%" }}>
     {searchResults.map((feature) => (
-      <ListItemButton key={feature.id}>
-        <ListItemAvatar>
-          <Avatar
-            src={`https://flagsapi.com/${feature.properties.context.country.country_code}/flat/64.png`}
-            variant="square"
-            alt="contry-flag"
-          />
-        </ListItemAvatar>
+      <Link
+        key={feature.id}
+        href={`/city/${toKebabCase(feature.properties.name)}`}
+      >
+        <ListItemButton>
+          <ListItemAvatar>
+            <Avatar
+              src={`https://flagsapi.com/${feature.properties.context.country.country_code}/flat/64.png`}
+              variant="square"
+              alt="contry-flag"
+            />
+          </ListItemAvatar>
 
-        <ListItemText
-          primary={
-            <Link href={`/city/${feature.properties.name}`}>
+          <ListItemText
+            primary={
               <Typography variant="body1">{feature.properties.name}</Typography>
-            </Link>
-          }
-          secondary={feature.properties.context.country.name}
-        />
-      </ListItemButton>
+            }
+            secondary={feature.properties.context.country.name}
+          />
+        </ListItemButton>
+      </Link>
     ))}
   </List>
 );
@@ -132,6 +135,7 @@ const StyledInputBase = styled(InputBase)({
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   width: "100%",
+  zIndex: 1000,
   "& .MuiPaper-root": {
     backgroundColor: "rgb(34, 34, 34)",
     color: "white",
@@ -140,3 +144,7 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
     borderRadius: "0.5rem",
   },
 }));
+
+const toKebabCase = (str) => {
+  return str.toLowerCase().replace(/\s+/g, "-");
+};

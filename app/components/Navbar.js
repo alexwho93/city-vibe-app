@@ -24,7 +24,7 @@ import Search from "./Search";
 
 const pages = [
   { name: "Home Page", href: "/homepage" },
-  { name: "City Page", href: "/city" },
+  { name: "City Page", href: "/city/piatra-neamt" },
   { name: "Favorites", href: "/favorites" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];

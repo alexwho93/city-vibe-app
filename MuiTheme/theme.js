@@ -34,6 +34,7 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
+          height: "100%",
           backgroundColor: "rgba(255, 255, 255, 0.05)",
           borderRadius: "10px",
           border: "1px solid rgba(255, 255, 255, 0.1)",

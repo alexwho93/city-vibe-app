@@ -113,7 +113,7 @@ export default function SignUp(props) {
   return (
     <>
       <SignUpContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
+        <Card variant="outlined" sx={{ maxHeight: "fit-content" }}>
           <Typography
             component="h1"
             variant="h4"

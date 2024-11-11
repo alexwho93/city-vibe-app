@@ -109,7 +109,7 @@ export default function SignIn(props) {
   return (
     <>
       <SignInContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
+        <Card variant="outlined" sx={{ maxHeight: "fit-content" }}>
           <Typography
             component="h1"
             variant="h4"
