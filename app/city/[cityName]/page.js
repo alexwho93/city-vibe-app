@@ -9,6 +9,7 @@ import CityStatisticsCard from "@components/CityStatisticsCard";
 import WeatherCard from "@components/WeatherCard";
 import DescriptionCard from "@components/DescriptionCard";
 import { useCityStatistics } from "@services/queries";
+import zIndex from "@mui/material/styles/zIndex";
 
 export default function CityPage({ params }) {
   const cityName = use(params).cityName;
@@ -25,13 +26,15 @@ export default function CityPage({ params }) {
     );
   }
 
-  if (error) {
+  if (error || !(data?.results?.length > 0)) {
     return (
       <Container maxWidth="lg" sx={centerStyle}>
-        <Typography variant="h4">Error loading city data.</Typography>
+        <Typography variant="h4">No city data.</Typography>
       </Container>
     );
   }
+
+  console.log(data);
 
   const {
     name,
@@ -43,6 +46,8 @@ export default function CityPage({ params }) {
     elevation,
     timezone,
   } = data.results[0];
+
+  console.log(data);
 
   return (
     <Container maxWidth="lg" sx={{ marginTop: "30px" }}>
@@ -83,12 +88,10 @@ function formatCityName(cityName) {
 }
 
 const centerStyle = {
-  position: "absolute",
-  top: "0",
-  left: "0",
   display: "flex",
-  height: "100vh",
+  height: "80vh",
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
+  zIndex: "-99",
 };

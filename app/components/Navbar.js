@@ -49,7 +49,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ zIndex: "99" }}>
       <Container maxWidth="lg">
         <Toolbar
           disableGutters
