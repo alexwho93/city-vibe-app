@@ -1,8 +1,9 @@
 import useSWR from "swr";
 import { useState, useEffect } from "react";
 
-const MAPBOX_API_KEY =
-  "pk.eyJ1IjoibWFib25nIiwiYSI6ImNrMm9qN2tiYTEwc3ozZG41emx6bW9uZnQifQ.PhojWq3UwsAlPB7LBvJiTw";
+const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
+const PEXELS_API_KEY = process.env.NEXT_PUBLIC_PEXELS_API_KEY;
+const GROQ_API_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY;
 
 export function useGeocodeSearch(searchInput) {
   return useSWR(
@@ -23,14 +24,12 @@ export function useWeather(latitude, longitude) {
 }
 
 export function useCityImage(cityName) {
-  const pexelsApiKey =
-    "eoOzKRJfgLBIYVniksrMntmhan364s3hZq7j4IZnqiRXzpzt8OhcbNOt";
   const url = `https://api.pexels.com/v1/search?query=${cityName}&per_page=1&orientation=landscape`;
 
   const fetcher = (url) =>
     fetch(url, {
       headers: {
-        Authorization: pexelsApiKey,
+        Authorization: PEXELS_API_KEY,
       },
     }).then((res) => res.json());
 
@@ -38,9 +37,6 @@ export function useCityImage(cityName) {
 }
 
 export function useGroqAI(userMessage) {
-  const GROQ_API_KEY =
-    "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";
-
   const fetcher = (url) =>
     fetch(url, {
       method: "POST",

@@ -15,7 +15,7 @@ const cardStyles = {
 
 function DescriptionCard({ cityName }) {
   const { data, error, isLoading } = useGroqAI(
-    `Write 60 word description about ${cityName} city`
+    `Write a 60 word description about ${cityName} city`
   );
 
   if (isLoading) {
@@ -26,10 +26,10 @@ function DescriptionCard({ cityName }) {
     );
   }
 
-  if (error || !data.choices[0].message.content) {
+  if (error || !data || !data.choices || data.choices.length === 0) {
     return (
       <Card sx={cardStyles}>
-        <div>Error loading.</div>
+        <div>Error loading description.</div>
       </Card>
     );
   }

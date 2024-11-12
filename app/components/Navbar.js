@@ -19,7 +19,6 @@ import {
   ButtonGroup,
   Stack,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import Search from "./Search";
 
 const pages = [
@@ -60,7 +59,13 @@ function Navbar() {
             padding: "12px 6px",
           }}
         >
-          <Image src="/logo.png" alt="Logo" width={100} height={100} />
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={100}
+            height={100}
+            priority={"true"}
+          />
           <Box sx={{ flexGrow: "1", margin: "0 3rem" }}>
             <Search />
           </Box>
