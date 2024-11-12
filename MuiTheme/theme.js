@@ -19,7 +19,7 @@ const theme = createTheme({
       disabled: "rgba(255, 255, 255, 0.5)",
     },
     customColors: {
-      lightGray: "#eee", // Define a custom color
+      lightGray: "#eee",
     },
   },
   components: {
@@ -34,6 +34,7 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
+          height: "100%",
           backgroundColor: "rgba(255, 255, 255, 0.05)",
           borderRadius: "10px",
           border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -44,17 +45,17 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "& label.Mui-focused": {
-            color: "rgba(255, 255, 255, 0.75)", // Change label color when focused (optional)
+            color: "rgba(255, 255, 255, 0.75)",
           },
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              borderColor: "rgba(255, 255, 255, 0.18)", // Set the border color to white
+              borderColor: "rgba(255, 255, 255, 0.18)",
             },
             "&:hover fieldset": {
-              borderColor: "rgba(255, 255, 255, 0.50)", // Optional: Keep border white on hover
+              borderColor: "rgba(255, 255, 255, 0.50)",
             },
             "&.Mui-focused fieldset": {
-              borderColor: "rgba(255, 255, 255, 0.75)", // Optional: Keep border white when focused
+              borderColor: "rgba(255, 255, 255, 0.75)",
             },
           },
         },
@@ -78,7 +79,17 @@ const theme = createTheme({
       styleOverrides: {
         paper: {
           // Style the paper of the menu
-          backgroundColor: "rgba(255, 255, 255, 0.1)", // Example background color
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            borderRadius: "10px",
+            backgroundColor: "rgba(255, 255, 255, 0.1)",
+          },
         },
       },
     },

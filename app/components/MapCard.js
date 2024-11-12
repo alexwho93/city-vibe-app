@@ -1,25 +1,49 @@
 import { Card } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 
-function MapCard({ lat, lon }) {
+const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
+
+function MapCard({ latitude, longitude }) {
   const mapContainerRef = useRef();
   const mapRef = useRef();
+  const [mapError, setMapError] = useState(null);
 
   useEffect(() => {
-    mapboxgl.accessToken =
-      "pk.eyJ1IjoibWFib25nIiwiYSI6ImNrMm9qN2tiYTEwc3ozZG41emx6bW9uZnQifQ.PhojWq3UwsAlPB7LBvJiTw";
+    mapboxgl.accessToken = MAPBOX_API_KEY;
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/outdoors-v12",
-      center: [lon, lat], // [lon, lat]
+      center: [longitude, latitude],
       zoom: 10,
     });
-  });
+
+    mapRef.current.on("error", (error) => {
+      setMapError(error);
+    });
+
+    return () => {
+      mapRef.current.remove();
+    };
+  }, [latitude, longitude]);
+
+  if (mapError) {
+    return <Card sx={cardStyles}>Error loading map!</Card>;
+  }
 
   return <Card sx={{ aspectRatio: "1/1" }} ref={mapContainerRef}></Card>;
-  // return <Card sx={{ aspectRatio: "1/1" }}></Card>;
 }
+
+const cardStyles = {
+  boxShadow: "inset 0 0 10px rgba(0, 0, 0, 0.2)",
+  border: "none",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+  padding: "1rem 0",
+  aspectRatio: "1/1",
+};
 
 export default MapCard;

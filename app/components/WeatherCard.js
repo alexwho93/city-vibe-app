@@ -1,60 +1,60 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Stack,
-  Box,
-  Avatar,
-} from "@mui/material";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import Image from "next/image";
+import { Card, Typography, Stack, CircularProgress } from "@mui/material";
 
-function WeatherCard({
-  temperature = 12,
-  condition = "good",
-  icon = "/sun.gif",
-  feelsLike = 8,
-}) {
+import { useWeather } from "@services/queries";
+
+const cardStyles = {
+  boxShadow: "inset 0 0 10px rgba(0, 0, 0, 0.2)",
+  border: "none",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+  padding: "1rem 0",
+};
+
+const stackStyles = {
+  height: "100%",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "0.5rem",
+};
+
+const feelsLikeStyles = {
+  background: "rgba(255,255,255,0.5)",
+  padding: "2px 12px",
+  borderRadius: "1rem",
+  color: "rgba(255,255,255,0.7)",
+};
+
+function WeatherCard({ latitude, longitude }) {
+  const { data, error, isLoading } = useWeather(latitude, longitude);
+
+  if (isLoading) {
+    return (
+      <Card sx={cardStyles}>
+        <CircularProgress />
+      </Card>
+    );
+  }
+
+  if (error || !data.current) {
+    return (
+      <Card sx={cardStyles}>
+        <div>Error loading.</div>
+      </Card>
+    );
+  }
+
+  const { temperature, apparent_temperature } = data.current;
   return (
-    <Card
-      sx={{
-        background:
-          "linear-gradient(180deg, rgba(129,181,244,1) 0%, rgba(42,94,156,1) 92%)",
-        boxShadow: "inset 0 0 10px rgba(0, 0, 0, 0.2)",
-        border: "none",
-      }}
-    >
-      <Stack
-        spacing={1}
-        sx={{
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "1rem",
-        }}
-      >
-        <Avatar
-          alt="Remy Sharp"
-          src={icon}
-          sx={{ width: 70, height: 70, padding: "-20px" }}
-        />
-        <Typography variant="h2" component="div">
-          {temperature}°
-        </Typography>
-        <Typography
-          variant="body2"
-          component="div"
-          sx={{
-            background: "rgba(255,255,255,0.5)",
-            padding: "2px 12px",
-            borderRadius: "1rem",
-            color: "rgba(60,100,156,0.8)",
-          }}
-        >
-          Feels like: {temperature}°
-        </Typography>
-        <Typography variant="h5" component="div">
-          Sunny
+    <Card sx={cardStyles}>
+      <Stack spacing={1} sx={stackStyles}>
+        <Typography variant="h6">Temperature</Typography>
+
+        <Typography variant="h3">{temperature}°C</Typography>
+        <Typography variant="body2" sx={feelsLikeStyles}>
+          Feels like: {apparent_temperature}°C
         </Typography>
       </Stack>
     </Card>

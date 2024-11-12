@@ -1,31 +1,47 @@
 import React from "react";
-import {
-  Card,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Card, Divider, Typography, CircularProgress } from "@mui/material";
 
-function DescriptionCard() {
+import { useGroqAI } from "@services/queries";
+
+const cardStyles = {
+  boxShadow: "inset 0 0 10px rgba(0, 0, 0, 0.2)",
+  border: "none",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+  padding: "1rem 0",
+};
+
+function DescriptionCard({ cityName }) {
+  const { data, error, isLoading } = useGroqAI(
+    `Write a 60 word description about ${cityName} city`
+  );
+
+  if (isLoading) {
+    return (
+      <Card sx={cardStyles}>
+        <CircularProgress />
+      </Card>
+    );
+  }
+
+  if (error || !data || !data.choices || data.choices.length === 0) {
+    return (
+      <Card sx={cardStyles}>
+        <div>Error loading description.</div>
+      </Card>
+    );
+  }
+
+  console.log(data.choices[0].message.content);
+  const aiResponse = data.choices[0].message.content;
+
   return (
     <Card sx={{ padding: 2 }}>
-      <Typography variant="h4">Description </Typography>
-      <Divider sx={{ margin: "10px 0", background: "rgba(255,255,255,0.2)" }} />
-      <Typography variant="body1">
-        Piatra-Neamț, city, capital of Neamț județ (county), northeastern
-        Romania. It lies in the valley of the Bistrița River and is surrounded
-        by mountains. It is first documented in the 14th century as Piatra lui
-        Crăciun, or Camena, a market town where fairs were held. Stephen the
-        Great of Moldavia built the Church of St. John there in 1497–98, a
-        classic example of ornate Moldavian architecture. The Bistrița
-        Monastery, founded at the beginning of the 15th century by Prince
-        Alexander the Good and rebuilt in 1554 by Prince Alexander Lăpușneanu,
-        is 5 miles (8 km) west of Piatra-Neamț.
-      </Typography>
+      <Typography variant="h6">Description </Typography>
+      <Divider sx={{ margin: "5px 0", background: "rgba(255,255,255,0.2)" }} />
+      <Typography variant="body1">{aiResponse}</Typography>
     </Card>
   );
 }
