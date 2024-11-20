@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "next": "15.0.3",
+    "@auth/prisma-adapter": "^2.7.3",
+    "@prisma/client": "^5.22.0",
     "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -19,15 +24,13 @@
     "@mui/material-nextjs": "^6.1.6",
     "@mui/styled-engine-sc": "^6.1.6",
     "mapbox-gl": "^3.7.0",
-    "next": "15.0.2",
-    "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028",
+    "next-auth": "^5.0.0-beta.25",
+    "sqlite3": "^5.1.7",
     "swr": "^2.2.5"
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "15.0.2",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "eslint-config-next": "15.0.3",
+    "prisma": "^5.22.0"
   }
 }
