@@ -1,0 +1,47 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+ 
+generator client {
+  provider = "prisma-client-js"
+}
+ 
+
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String         @unique
+  password      String
+  image         String?
+  favoriteCities FavoriteCities[]
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model City {
+  id            String          @id @default(cuid())
+  name          String          @unique
+  description   String?
+  country       String
+  countryCode   String
+  imgLink       String
+  population    Int?
+  latitude      Float
+  longitude     Float
+  elevation     Float
+  timezone      String?
+  favoritedBy   FavoriteCities[]
+}
+
+model FavoriteCities {
+  id            String          @id @default(cuid())
+  user          User            @relation(fields: [userId], references: [id])
+  userId        String
+  city          City            @relation(fields: [cityId], references: [id])
+  cityId        String
+
+  @@unique([userId, cityId])
+}
