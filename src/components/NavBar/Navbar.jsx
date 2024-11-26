@@ -51,7 +51,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static" sx={{ zIndex: "99" }}>
+    <AppBar position="static" sx={{ zIndex: "99", background: "transparent" }}>
       <Container maxWidth="lg">
         <Toolbar
           disableGutters

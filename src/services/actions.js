@@ -52,7 +52,7 @@ export const getCityDescription = cache(async (cityName) => {
         Authorization: `Bearer ${GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "llama3-8b-819",
+        model: "llama3-8b-8192",
         messages: [{ role: "user", content: userMessage }],
       }),
     }

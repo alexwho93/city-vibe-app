@@ -21,6 +21,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { styled } from "@mui/material/styles";
 import { useGeocodeSearch, useDebounce } from "../../services/queries";
 import Link from "next/link";
+import YourLocation from "./YourLocation";
 
 const SearchResultsList = ({ searchResults }) => (
   <List dense sx={{ width: "100%" }}>
@@ -87,6 +88,7 @@ export default function Search() {
           "aria-label": "search",
         }}
         onBlur={handleDropdownClose}
+        onFocus={() => setIsDropdownOpen(true)}
         onInput={handleInput}
         value={searchInput}
       />
@@ -101,13 +103,16 @@ export default function Search() {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper>
-              {data?.features.length > 0 ? (
-                <SearchResultsList searchResults={data.features} />
-              ) : (
-                <Typography variant="body1" sx={{ padding: "1rem" }}>
-                  No results found.
-                </Typography>
-              )}
+              <List dense sx={{ width: "100%" }}>
+                <YourLocation />
+                {data?.features.length > 0 ? (
+                  <SearchResultsList searchResults={data.features} />
+                ) : (
+                  <Typography variant="body1" sx={{ padding: "1rem" }}>
+                    No results found.
+                  </Typography>
+                )}
+              </List>
             </Paper>
           </Fade>
         )}

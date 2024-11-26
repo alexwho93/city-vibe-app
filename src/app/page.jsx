@@ -39,13 +39,12 @@ export default function Root() {
   return (
     <GradientBackground>
       <Container maxWidth="lg">
-        <Box my={4}>
+        <Box my={1}>
           <Typography
-            variant="h2"
+            variant="h3"
             component="h1"
             gutterBottom
-            align="center"
-            color="white"
+            sx={{ textAlign: "center", mb: 4, color: "primary.main" }}
           >
             Welcome to CityVibe
           </Typography>
@@ -91,8 +90,8 @@ export default function Root() {
                 <Image
                   src="/city-illustration.jpg"
                   alt="City Illustration"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  style={{ objectFit: "cover" }}
                 />
               </Box>
             </Grid>
