@@ -52,7 +52,7 @@ export const getCityDescription = cache(async (cityName) => {
         Authorization: `Bearer ${GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "llama3-8b-819",
+        model: "llama3-8b-8192",
         messages: [{ role: "user", content: userMessage }],
       }),
     }
@@ -123,6 +123,23 @@ export async function getFavoriteCities(userId) {
     return { success: true, favorites };
   } catch (error) {
     console.error("Error fetching favorite cities:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export async function searchCitiesByNames(cityNames) {
+  try {
+    const cities = await prisma.city.findMany({
+      where: {
+        name: {
+          in: cityNames,
+        },
+      },
+    });
+
+    return { success: true, cities };
+  } catch (error) {
+    console.error("Error fetching cities:", error);
     return { success: false, error: error.message };
   }
 }

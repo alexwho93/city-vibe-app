@@ -2,24 +2,31 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    type: "dark",
+    mode: "dark",
     primary: {
-      main: "rgb(255, 0, 89)",
+      main: "#D4AF37", // Muted gold
+      light: "#E5C76B", // Light muted gold
+      dark: "#A38A28", // Dark muted gold
     },
     secondary: {
-      main: "rgb(220, 0, 78)",
+      main: "#C2B280", // Khaki (desaturated complementary to gold)
     },
     background: {
-      default: "#fff",
-      paper: "#fff",
+      default: "#121212", // Very dark gray, almost black
+      paper: "#1E1E1E", // Dark gray
     },
     text: {
-      primary: "#fff",
-      secondary: "#eee",
-      disabled: "rgba(255, 255, 255, 0.5)",
+      primary: "#E0E0E0", // Off-white
+      secondary: "#A0A0A0", // Medium gray
+    },
+    action: {
+      active: "#D4AF37", // Muted gold
+      hover: "rgba(212, 175, 55, 0.08)", // Transparent muted gold
     },
     customColors: {
-      lightGray: "#eee",
+      goldAccent: "#B8860B", // Dark goldenrod (more muted)
+      darkGold: "#705E0B", // Very dark muted gold
+      contrast: "#20B2AA", // Light Sea Green (teal)
     },
   },
   components: {

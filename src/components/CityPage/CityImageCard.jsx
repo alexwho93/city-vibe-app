@@ -44,6 +44,7 @@ const backgroundStyle = {
   backgroundSize: "cover",
   backgroundPosition: "center",
   height: "100%",
+  minHeight: "350px",
   position: "relative",
   color: "white",
   display: "flex",

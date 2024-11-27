@@ -34,18 +34,27 @@ function MapCard({ latitude, longitude }) {
     return <Card sx={cardStyles}>Error loading map!</Card>;
   }
 
-  return <Card sx={{ aspectRatio: "1/1" }} ref={mapContainerRef}></Card>;
+  return (
+    <Card sx={cardStyles}>
+      <div ref={mapContainerRef} style={mapContainerStyles}></div>
+    </Card>
+  );
 }
 
 const cardStyles = {
-  boxShadow: "inset 0 0 10px rgba(0, 0, 0, 0.2)",
-  border: "none",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "column",
-  padding: "1rem 0",
-  aspectRatio: "1/1",
+  position: "relative",
+  width: "100%",
+  minHeight: "350px",
+  overflow: "hidden",
+  paddingTop: "100%",
+};
+
+const mapContainerStyles = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
 };
 
 export default MapCard;

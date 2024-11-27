@@ -1,12 +1,7 @@
-"use client";
-
 import { Card, Typography, Box, IconButton, Button } from "@mui/material";
 import Image from "next/image";
-import { useState } from "react";
-import { getCityImage } from "@/services/actions";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Link from "next/link";
+import { toKebabCase } from "@/lib/utils";
 
 function CityCard({ city }) {
   return (
@@ -14,7 +9,7 @@ function CityCard({ city }) {
       <Box
         sx={{
           ...backgroundStyle,
-          backgroundImage: city.imgLink ? `url(${city.imgLink})` : "",
+          backgroundImage: city?.imgLink ? `url(${city.imgLink})` : "",
         }}
       >
         <Box
@@ -36,21 +31,12 @@ function CityCard({ city }) {
               },
             }}
           >
-            <Link href={"/pageLink"}>View City Information</Link>
+            {city?.name && (
+              <Link href={`/city/${toKebabCase(city.name)}`}>
+                View City Information
+              </Link>
+            )}
           </Button>
-          <IconButton
-            sx={{
-              color: "white",
-              backgroundColor: "rgba(0, 0, 0, 0.3)",
-              width: "fit-content",
-              borderRadius: "0 0 0 12px",
-              "&:hover": {
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-              },
-            }}
-          >
-            <FavoriteIcon />
-          </IconButton>
         </Box>
         <Box sx={overlayStyleBottom}>
           <Box
@@ -62,15 +48,17 @@ function CityCard({ city }) {
             }}
           >
             <Image
-              src={`https://flagsapi.com/${city.countryCode}/flat/32.png`}
-              alt={`${city.country} Flag`}
+              src={`https://flagsapi.com/${city?.countryCode}/flat/32.png`}
+              alt={`${city?.country} Flag`}
               width={20}
               height={20}
               style={{ marginRight: "8px" }}
             />
-            <Typography variant="subtitle2">{city.name}</Typography>
+            <Typography variant="subtitle2">{city?.country}</Typography>
           </Box>
-          <Typography variant="h5">{city.country}</Typography>
+          <Typography variant="h5" textAlign="left">
+            {city?.name}
+          </Typography>
         </Box>
       </Box>
     </Card>

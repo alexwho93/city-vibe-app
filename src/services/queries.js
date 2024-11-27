@@ -2,8 +2,9 @@ import useSWR from "swr";
 import { useState, useEffect } from "react";
 
 const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
-const PEXELS_API_KEY = process.env.NEXT_PUBLIC_PEXELS_API_KEY;
-const GROQ_API_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+const PEXELS_API_KEY = process.env.PEXELS_API_KEY;
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const IPINFO_API_KEY = process.env.NEXT_PUBLIC_IPINFO_API_KEY;
 
 export function useGeocodeSearch(searchInput) {
   return useSWR(
@@ -51,6 +52,16 @@ export function useGroqAI(userMessage) {
     }).then((res) => res.json());
 
   return useSWR("https://api.groq.com/openai/v1/chat/completions", fetcher);
+}
+
+export function getGeocodeReverse(latitude, longitude) {
+  return fetch(
+    `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${longitude}&latitude=${latitude}&limit=1&types=place&access_token=${MAPBOX_API_KEY}`
+  );
+}
+
+export function getIpInfo() {
+  return fetch(`https://ipinfo.io?token=${IPINFO_API_KEY}`);
 }
 
 export function useDebounce(value, delay) {
