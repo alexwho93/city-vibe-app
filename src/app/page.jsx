@@ -11,7 +11,7 @@ export default function Root() {
           color="primary.main"
           fontWeight="bold"
         >
-          Explore the World's Urban Rhythms
+          Explore the World&apos;s Urban Rhythms
         </Typography>
         <Container maxWidth="md">
           <Typography variant="h6">
