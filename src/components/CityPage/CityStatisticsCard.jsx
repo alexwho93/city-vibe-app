@@ -40,21 +40,11 @@ function CityStatisticsCard({
     },
   ];
   return (
-    <Card
-      sx={{
-        display: "flex",
-
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
-      <List sx={{ width: "100%" }}>
+    <Card>
+      <List>
         {statisticsData.map((item, index) => (
           <ListItem key={index}>
-            <ListItemIcon sx={{ color: "rgba(255, 255, 255, 0.6)" }}>
-              {item.icon}
-            </ListItemIcon>
+            <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.title} />
             <ListItemText
               sx={{ textAlign: "right" }}

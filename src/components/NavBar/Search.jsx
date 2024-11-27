@@ -11,17 +11,16 @@ import {
   InputBase,
   Typography,
   List,
-  ListItem,
   ListItemAvatar,
   Avatar,
   ListItemText,
   ListItemButton,
 } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { styled } from "@mui/material/styles";
 import { useGeocodeSearch, useDebounce } from "../../services/queries";
 import Link from "next/link";
 import YourLocation from "./YourLocation";
+import { toKebabCase } from "@/lib/utils";
 
 const SearchResultsList = ({ searchResults }) => (
   <List dense sx={{ width: "100%" }}>
@@ -72,7 +71,8 @@ export default function Search() {
 
   return (
     <FormControl ref={searchInputRef} sx={{ width: "100%" }}>
-      <StyledInputBase
+      <InputBase
+        sx={StyledInputBase}
         id="search"
         placeholder="Search…"
         endAdornment={
@@ -93,7 +93,8 @@ export default function Search() {
         value={searchInput}
       />
 
-      <StyledPopper
+      <Popper
+        sx={StyledPopper}
         disablePortal
         open={isDropdownOpen}
         anchorEl={searchInputRef.current}
@@ -116,12 +117,12 @@ export default function Search() {
             </Paper>
           </Fade>
         )}
-      </StyledPopper>
+      </Popper>
     </FormControl>
   );
 }
 
-const StyledInputBase = styled(InputBase)({
+const StyledInputBase = {
   padding: "6px 10px",
   backgroundColor: "rgba(255, 255, 255, 0.05)",
   border: "1px solid transparent",
@@ -138,10 +139,11 @@ const StyledInputBase = styled(InputBase)({
     borderColor: "rgba(255, 255, 255, 0.75)",
   },
   "&::placeholder": {},
-});
+};
 
-const StyledPopper = styled(Popper)(({ theme }) => ({
+const StyledPopper = {
   width: "100%",
+  minWidth: "max-content",
   zIndex: 1000,
   "& .MuiPaper-root": {
     backgroundColor: "rgb(34, 34, 34)",
@@ -150,8 +152,4 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
     marginTop: "5px",
     borderRadius: "0.5rem",
   },
-}));
-
-const toKebabCase = (str) => {
-  return str.toLowerCase().replace(/\s+/g, "-");
 };

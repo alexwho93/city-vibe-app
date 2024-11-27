@@ -29,7 +29,7 @@ export default async function Favorites() {
         useFlexGap
         sx={{
           flexWrap: "wrap",
-          justifyContent: "space-between",
+          justifyContent: "center",
           alignItems: "center",
         }}
       >

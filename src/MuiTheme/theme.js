@@ -26,6 +26,7 @@ const theme = createTheme({
     customColors: {
       goldAccent: "#B8860B", // Dark goldenrod (more muted)
       darkGold: "#705E0B", // Very dark muted gold
+      contrast: "#20B2AA", // Light Sea Green (teal)
     },
   },
   components: {

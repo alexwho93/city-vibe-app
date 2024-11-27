@@ -59,26 +59,24 @@ export default async function CityPage({ params }) {
   // console.log("City statistics data is: ", data);
 
   return (
-    <Container maxWidth="lg" sx={{ marginTop: "10px" }}>
+    <Container maxWidth="lg" sx={{ padding: "1rem 0" }}>
       <SaveToFavoritesButton userId={userId} cityData={cityData} />
       <Grid container spacing={2}>
-        <Grid size={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <CityImageCard
             countryCode={country_code}
             countryName={country}
             cityName={name}
           />
         </Grid>
-        <Grid size={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <MapCard latitude={latitude} longitude={longitude} />
         </Grid>
-        <Grid size={2}>
-          <WeatherCard latitude={latitude} longitude={longitude}></WeatherCard>
+        <Grid size={{ xs: 4, md: 2 }}>
+          <WeatherCard latitude={latitude} longitude={longitude} />
         </Grid>
-        <Grid size={6}>
-          <DescriptionCard cityName={name} />
-        </Grid>
-        <Grid size={4}>
+
+        <Grid size={{ xs: 8, md: 4 }}>
           <CityStatisticsCard
             population={population}
             longitude={longitude}
@@ -86,6 +84,9 @@ export default async function CityPage({ params }) {
             elevation={elevation}
             timezone={timezone}
           />
+        </Grid>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <DescriptionCard cityName={name} />
         </Grid>
       </Grid>
     </Container>

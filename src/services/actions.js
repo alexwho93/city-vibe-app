@@ -126,3 +126,20 @@ export async function getFavoriteCities(userId) {
     return { success: false, error: error.message };
   }
 }
+
+export async function searchCitiesByNames(cityNames) {
+  try {
+    const cities = await prisma.city.findMany({
+      where: {
+        name: {
+          in: cityNames,
+        },
+      },
+    });
+
+    return { success: true, cities };
+  } catch (error) {
+    console.error("Error fetching cities:", error);
+    return { success: false, error: error.message };
+  }
+}
