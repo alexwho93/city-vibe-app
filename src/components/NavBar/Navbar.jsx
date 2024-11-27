@@ -61,14 +61,16 @@ function Navbar() {
             padding: "12px 6px",
           }}
         >
-          <Image
-            src="/logo.png"
-            alt="Logo"
-            width={90}
-            height={50}
-            priority={"true"}
-            style={{ objectFit: "contain" }}
-          />
+          <Link href={"/"}>
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={90}
+              height={50}
+              priority={"true"}
+              style={{ objectFit: "contain" }}
+            />
+          </Link>
           <Box sx={{ flexGrow: "1", margin: "0 3rem" }}>
             <Search />
           </Box>
