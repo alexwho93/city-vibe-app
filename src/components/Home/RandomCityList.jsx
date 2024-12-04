@@ -1,20 +1,12 @@
 import React from "react";
-import {
-  Typography,
-  Button,
-  Stack,
-  Paper,
-  Box,
-  Container,
-  Grid,
-} from "@mui/material";
-import { searchCitiesByNames } from "@/services/actions";
+import { Stack } from "@mui/material";
+import { getRandomCities } from "@/services/actions";
 import CityCard from "@/components/FavoritesPage/CityCard";
 
 async function RandomCityList() {
   let cities = [];
   try {
-    const result = await searchCitiesByNames(["New York", "Tokyo", "Paris"]);
+    const result = await getRandomCities(3);
     if (result.success) {
       cities = result.cities;
     } else {
@@ -23,8 +15,6 @@ async function RandomCityList() {
   } catch (error) {
     console.error("Error fetching cities:", error);
   }
-
-  console.log("random component: ", cities);
 
   return (
     <Stack

@@ -5,32 +5,24 @@
   margin: 0;
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #191919;
-    --gradient: radial-gradient(
-      ellipse 60% 60% at 50% -20%,
-      rgba(249, 116, 21, 0.3),
-      rgb(24, 24, 24)
-    );
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  background-image: var(--gradient);
-  min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 a {
   color: inherit;
   text-decoration: none;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --background-default: #001e3c;
+  --background-gradient: radial-gradient(
+    ellipse 60% 60% at 50% -20%,
+    rgba(247, 103, 0, 0.3),
+    transparent
+  );
+}
+
+body {
+  min-height: 100vh;
+  background-image: var(--background-gradient);
+  background-color: var(--background-default);
 }

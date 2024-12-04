@@ -6,9 +6,15 @@ const PEXELS_API_KEY = process.env.PEXELS_API_KEY;
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const IPINFO_API_KEY = process.env.NEXT_PUBLIC_IPINFO_API_KEY;
 
+// export function useGeocodeSearch(searchInput) {
+//   return useSWR(
+//     `https://api.mapbox.com/search/geocode/v6/forward?q=${searchInput}&proximity=ip&types=place&language=en&access_token=${MAPBOX_API_KEY}`
+//   );
+// }
+
 export function useGeocodeSearch(searchInput) {
   return useSWR(
-    `https://api.mapbox.com/search/geocode/v6/forward?q=${searchInput}&proximity=ip&types=place&language=en&access_token=${MAPBOX_API_KEY}`
+    `https://geocoding-api.open-meteo.com/v1/search?name=${searchInput}&count=5&language=en&format=json`
   );
 }
 

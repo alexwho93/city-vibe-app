@@ -1,18 +1,13 @@
 import { Card, Typography, Box } from "@mui/material";
 import Image from "next/image";
-import { getCityImage } from "@/services/actions";
 
-async function CityImageCard({ countryCode, countryName, cityName }) {
-  const data = await getCityImage(cityName);
-
-  const cityImage = data?.photos?.[0]?.src?.large;
-
+async function CityImageCard({ countryCode, countryName, cityName, imgLink }) {
   return (
     <Card sx={{ border: "none", height: "100%" }}>
       <Box
         sx={{
           ...backgroundStyle,
-          backgroundImage: cityImage ? `url(${cityImage})` : "",
+          backgroundImage: imgLink ? `url(${imgLink})` : "",
         }}
       >
         <Box sx={overlayStyle}>

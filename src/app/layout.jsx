@@ -1,9 +1,4 @@
 import "./globals.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import { auth } from "@/services/auth";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import Navbar from "../components/NavBar/Navbar";
 import AppTheme from "@/MuiTheme/AppTheme";
@@ -16,20 +11,18 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await auth();
-
   return (
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <AppTheme>
-            <SwrConfigProvider>
-              <AuthProvider>
-                {session?.user && <Navbar />}
+          <SwrConfigProvider>
+            <AuthProvider>
+              <AppTheme>
+                <Navbar />
                 {children}
-              </AuthProvider>
-            </SwrConfigProvider>
-          </AppTheme>
+              </AppTheme>
+            </AuthProvider>
+          </SwrConfigProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

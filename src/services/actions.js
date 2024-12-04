@@ -14,9 +14,16 @@ export const geocodeSearch = cache(async (searchInput) => {
   return response.json();
 });
 
-export const getCityStatistics = cache(async (city) => {
+// export const getCityStatistics = cache(async (city) => {
+//   const response = await fetch(
+//     `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
+//   );
+//   return response.json();
+// });
+
+export const getCityStatistics = cache(async (cityId) => {
   const response = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
+    `https://geocoding-api.open-meteo.com/v1/get?id=${cityId}`
   );
   return response.json();
 });
@@ -66,7 +73,7 @@ export async function toggleFavoriteCity(cityData, userId) {
     const existingFavorite = await prisma.favoriteCities.findFirst({
       where: {
         userId: userId,
-        city: { name: cityData.name },
+        city: { cityId: cityData.cityId },
       },
     });
     if (existingFavorite) {
@@ -82,7 +89,7 @@ export async function toggleFavoriteCity(cityData, userId) {
           user: { connect: { id: userId } },
           city: {
             connectOrCreate: {
-              where: { name: cityData.name },
+              where: { cityId: cityData.cityId },
               create: {
                 ...cityData,
               },
@@ -99,12 +106,12 @@ export async function toggleFavoriteCity(cityData, userId) {
   }
 }
 
-export async function checkFavoriteStatus(cityName, userId) {
+export async function checkFavoriteStatus(cityId, userId) {
   try {
     const favorite = await prisma.favoriteCities.findFirst({
       where: {
         userId: userId,
-        city: { name: cityName },
+        city: { cityId: cityId },
       },
     });
     return { isFavorite: !!favorite };
@@ -140,6 +147,24 @@ export async function searchCitiesByNames(cityNames) {
     return { success: true, cities };
   } catch (error) {
     console.error("Error fetching cities:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export async function getRandomCities(count) {
+  try {
+    const cities = await prisma.city.findMany({
+      take: count,
+      orderBy: {
+        id: "asc", // This is just to ensure consistent ordering
+      },
+      // This is the key part that introduces randomness
+      skip: Math.floor(Math.random() * (await prisma.city.count())),
+    });
+
+    return { success: true, cities };
+  } catch (error) {
+    console.error("Error fetching random cities:", error);
     return { success: false, error: error.message };
   }
 }

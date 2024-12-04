@@ -4,7 +4,10 @@ import { getIpInfo } from "@/services/queries";
 
 export function useGeolocation() {
   const [location, setLocation] = useState(null);
-  const [locationName, setLocationName] = useState("Fetching location...");
+  const [locationInfo, setLocationInfo] = useState({
+    name: "Fetching location...",
+    id: null,
+  });
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -29,9 +32,35 @@ export function useGeolocation() {
     try {
       const response = await getIpInfo();
       const data = await response.json();
-      setLocationName(data.city);
+      await fetchCityId(data.city);
     } catch (error) {
       console.log("Error fetching IP-based location:", error);
+    }
+  };
+
+  const fetchCityId = async (cityName) => {
+    try {
+      const response = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1&language=en&format=json`
+      );
+      const data = await response.json();
+      if (data.results && data.results.length > 0) {
+        setLocationInfo({
+          name: cityName,
+          id: data.results[0].id,
+        });
+      } else {
+        setLocationInfo({
+          name: cityName,
+          id: null,
+        });
+      }
+    } catch (error) {
+      console.log("Error fetching city ID:", error);
+      setLocationInfo({
+        name: cityName,
+        id: null,
+      });
     }
   };
 
@@ -46,9 +75,12 @@ export function useGeolocation() {
           const data = await response.json();
           if (data.features && data.features.length > 0) {
             const place = data.features[0].properties.name;
-            setLocationName(place);
+            await fetchCityId(place.replace(/-/g, " "));
           } else {
-            setLocationName("Location not found");
+            setLocationInfo({
+              name: "Location not found",
+              id: null,
+            });
           }
         } catch (error) {
           console.log("Error fetching location name");
@@ -59,5 +91,5 @@ export function useGeolocation() {
     }
   }, [location]);
 
-  return locationName;
+  return locationInfo;
 }

@@ -21,28 +21,24 @@ import { useGeocodeSearch, useDebounce } from "../../services/queries";
 import Link from "next/link";
 import YourLocation from "./YourLocation";
 import { toKebabCase } from "@/lib/utils";
+import { alpha } from "@mui/material/styles";
 
 const SearchResultsList = ({ searchResults }) => (
   <List dense sx={{ width: "100%" }}>
-    {searchResults.map((feature) => (
-      <Link
-        key={feature.id}
-        href={`/city/${toKebabCase(feature.properties.name)}`}
-      >
+    {searchResults.map((result) => (
+      <Link key={result.id} href={`/city/${result.id}`}>
         <ListItemButton>
           <ListItemAvatar>
             <Avatar
-              src={`https://flagsapi.com/${feature.properties.context.country.country_code}/flat/64.png`}
+              src={`https://flagsapi.com/${result.country_code}/flat/64.png`}
               variant="square"
               alt="contry-flag"
             />
           </ListItemAvatar>
 
           <ListItemText
-            primary={
-              <Typography variant="body1">{feature.properties.name}</Typography>
-            }
-            secondary={feature.properties.context.country.name}
+            primary={<Typography variant="body1">{result.name}</Typography>}
+            secondary={result.country}
           />
         </ListItemButton>
       </Link>
@@ -58,7 +54,7 @@ export default function Search() {
   const { data, error, isLoading } = useGeocodeSearch(
     useDebounce(searchInput, 300)
   );
-
+  // console.log("search data: " + JSON.stringify(data, null, 2));
   const handleDropdownClose = () => {
     setIsDropdownOpen(false);
     setSearchInput("");
@@ -76,7 +72,7 @@ export default function Search() {
         id="search"
         placeholder="Search…"
         endAdornment={
-          <InputAdornment position="end" sx={{ color: "text.primary" }}>
+          <InputAdornment position="end">
             {isLoading ? (
               <CircularProgress size={15} />
             ) : (
@@ -106,8 +102,8 @@ export default function Search() {
             <Paper>
               <List dense sx={{ width: "100%" }}>
                 <YourLocation />
-                {data?.features.length > 0 ? (
-                  <SearchResultsList searchResults={data.features} />
+                {data?.results?.length > 0 ? (
+                  <SearchResultsList searchResults={data.results} />
                 ) : (
                   <Typography variant="body1" sx={{ padding: "1rem" }}>
                     No results found.
@@ -123,22 +119,29 @@ export default function Search() {
 }
 
 const StyledInputBase = {
-  padding: "6px 10px",
-  backgroundColor: "rgba(255, 255, 255, 0.05)",
-  border: "1px solid transparent",
-  borderRadius: "0.5rem",
-
-  color: "text.primary",
-  "&::placeholder": {
-    color: "text.secondary",
-  },
+  padding: "10px 12px",
+  borderRadius: "12px",
+  backgroundColor: "action.hover",
+  border: "1px solid",
+  borderColor: "divider",
+  transition: "all 0.2s",
   "&:hover": {
-    borderColor: "rgba(255, 255, 255, 0.5)",
+    borderColor: "text.primary",
   },
   "&.Mui-focused": {
-    borderColor: "rgba(255, 255, 255, 0.75)",
+    borderColor: "primary.main",
+    boxShadow: (theme) =>
+      `0 0 0 2px ${alpha(theme.palette.primary.main, 0.25)}`,
   },
-  "&::placeholder": {},
+  "& input": {
+    padding: 0,
+    height: "1.4375em",
+    fontSize: "1rem",
+  },
+  "& input::placeholder": {
+    color: "text.secondary",
+    opacity: 1,
+  },
 };
 
 const StyledPopper = {
@@ -146,8 +149,6 @@ const StyledPopper = {
   minWidth: "max-content",
   zIndex: 1000,
   "& .MuiPaper-root": {
-    backgroundColor: "rgb(34, 34, 34)",
-    color: "white",
     padding: "1rem",
     marginTop: "5px",
     borderRadius: "0.5rem",

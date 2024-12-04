@@ -1,10 +1,17 @@
 import { Typography, Box, Container } from "@mui/material";
 import RandomCityList from "@/components/Home/RandomCityList";
+import { auth } from "@/services/auth";
+export default async function Root() {
+  const session = await auth();
 
-export default function Root() {
   return (
     <Container maxWidth="lg">
       <Box py="3rem" textAlign="center">
+        {session?.user?.name && (
+          <Typography variant="h4" color="secondary.main" mb="1rem">
+            Welcome, {session.user.name}!
+          </Typography>
+        )}
         <Typography
           variant="h2"
           my="1.5rem"

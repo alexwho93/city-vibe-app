@@ -28,6 +28,7 @@ async function WeatherCard({ latitude, longitude }) {
 }
 
 const stackStyles = {
+  minHeight: "220px",
   height: "100%",
   justifyContent: "space-between",
   alignItems: "center",

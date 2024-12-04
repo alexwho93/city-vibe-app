@@ -13,7 +13,7 @@ export default function YourLocation() {
   const locationName = useGeolocation();
 
   return (
-    <Link href={locationName ? `/city/${toKebabCase(locationName)}` : ""}>
+    <Link href={locationName ? `/city/${locationName.id}` : ""}>
       <ListItemButton>
         <ListItemAvatar>
           <Avatar
@@ -33,7 +33,7 @@ export default function YourLocation() {
         </ListItemAvatar>
         <ListItemText
           primary={<Typography variant="body1">Your Location</Typography>}
-          secondary={locationName}
+          secondary={locationName.name}
         />
       </ListItemButton>
     </Link>
