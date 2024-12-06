@@ -18,7 +18,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        console.log("call to db running");
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -28,7 +27,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: credentials.email,
           },
         });
-        // console.log("db user is", user);
         if (!user || user.password !== credentials.password) {
           return null;
         }

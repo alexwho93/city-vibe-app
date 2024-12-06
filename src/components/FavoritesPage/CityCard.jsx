@@ -32,9 +32,7 @@ function CityCard({ city }) {
             }}
           >
             {city?.name && (
-              <Link href={`/city/${toKebabCase(city.name)}`}>
-                View City Information
-              </Link>
+              <Link href={`/city/${city.cityId}`}>View City Information</Link>
             )}
           </Button>
         </Box>

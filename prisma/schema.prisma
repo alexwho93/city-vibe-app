@@ -23,6 +23,7 @@ model User {
  
 model City {
   id            String          @id @default(cuid())
+  cityId        String          @unique
   name          String          @unique
   description   String?
   country       String

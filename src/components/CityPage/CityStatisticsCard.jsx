@@ -4,55 +4,62 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Box,
 } from "@mui/material";
 import PeopleIcon from "@mui/icons-material/People";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HeightIcon from "@mui/icons-material/Height";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
-function CityStatisticsCard({
-  population = "-",
-  longitude = "-",
-  latitude = "-",
-  elevation = "-",
-  timezone = "-",
-}) {
+function CityStatisticsCard({ statisticsCityData }) {
   const statisticsData = [
     {
       icon: <PeopleIcon />,
       title: "Population",
-      statistic: formatNumberWithCommas(population),
+      statistic: formatNumberWithCommas(statisticsCityData.population || "-"),
     },
     {
       icon: <LocationOnIcon />,
       title: "Position",
-      statistic: `${formatLongitude(longitude)}, ${formatLatitude(latitude)}`,
+      statistic: `${formatLongitude(
+        statisticsCityData.longitude || "-"
+      )}, ${formatLatitude(statisticsCityData.latitude || "-")}`,
     },
     {
       icon: <HeightIcon />,
       title: "Elevation",
-      statistic: elevation + " m",
+      statistic: (statisticsCityData.elevation || "-") + " m",
     },
     {
       icon: <AccessTimeIcon />,
       title: "Timezone",
-      statistic: timezone,
+      statistic: statisticsCityData.timezone || "-",
     },
   ];
   return (
     <Card>
-      <List>
-        {statisticsData.map((item, index) => (
-          <ListItem key={index}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.title} />
-            <ListItemText
-              sx={{ textAlign: "right" }}
-              primary={item.statistic}
-            />
-          </ListItem>
-        ))}
-      </List>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "100%",
+          minHeight: "220px",
+        }}
+      >
+        <List>
+          {statisticsData.map((item, index) => (
+            <ListItem key={index}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.title} />
+              <ListItemText
+                sx={{ textAlign: "right" }}
+                primary={item.statistic}
+              />
+            </ListItem>
+          ))}
+        </List>
+      </Box>
     </Card>
   );
 }
@@ -68,7 +75,7 @@ function formatLongitude(longitude) {
 }
 
 function formatNumberWithCommas(number) {
-  return number.toLocaleString();
+  return number?.toLocaleString();
 }
 
 export default CityStatisticsCard;

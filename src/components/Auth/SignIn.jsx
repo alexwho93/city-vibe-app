@@ -12,12 +12,14 @@ import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
 import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignIn() {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
+  const searchParams = useSearchParams();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,8 +29,7 @@ export default function SignIn() {
         const result = await signIn("credentials", {
           email: formData.get("email"),
           password: formData.get("password"),
-          callbackUrl: "/",
-          redirect: true,
+          callbackUrl: searchParams.get("callbackUrl") || "/",
         });
 
         if (result.error) {
