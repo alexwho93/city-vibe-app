@@ -30,7 +30,7 @@ export default async function Favorites() {
       {favoriteCities.length === 0 ? (
         <Box sx={{ textAlign: "center", mt: 4 }}>
           <Typography variant="h6" color="text.secondary">
-            You haven't added any favorite cities yet.
+            You haven&apos;t added any favorite cities yet.
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
             Explore cities and add them to your favorites!

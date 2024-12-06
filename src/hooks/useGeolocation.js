@@ -10,6 +10,16 @@ export function useGeolocation() {
   });
 
   useEffect(() => {
+    const fetchIpBasedLocation = async () => {
+      try {
+        const response = await getIpInfo();
+        const data = await response.json();
+        await fetchCityId(data.city);
+      } catch (error) {
+        console.log("Error fetching IP-based location:", error);
+      }
+    };
+
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) =>
@@ -27,16 +37,6 @@ export function useGeolocation() {
       console.log("Geolocation is not supported by your browser");
     }
   }, []);
-
-  const fetchIpBasedLocation = async () => {
-    try {
-      const response = await getIpInfo();
-      const data = await response.json();
-      await fetchCityId(data.city);
-    } catch (error) {
-      console.log("Error fetching IP-based location:", error);
-    }
-  };
 
   const fetchCityId = async (cityName) => {
     try {
