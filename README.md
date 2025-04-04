@@ -1,8 +1,3 @@
-# City Vibe App ✨
-
-<!-- Optional: Add a concise, professional banner or logo -->
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 ## Overview
 
 City Vibe is a modern web application built with **Next.js (App Router)** designed to help users **explore, save, and share their favorite urban destinations**. It allows users to discover the unique atmosphere of cities around the globe, find local hotspots, and experience the authentic pulse of each destination.
@@ -101,5 +96,4 @@ This project serves as a practical demonstration of full-stack development skill
 
 ## License 📄
 
-This project is likely intended for personal portfolio use. If you wish to make it open source, choose a license.
-*Example:* This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. *(Remember to add a `LICENSE` file if you choose one)*. Otherwise, state: *Source code is available for review, but please contact the author for usage rights.*
+*Source code is available for review, but please contact the author for usage rights.*
